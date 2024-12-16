@@ -114,5 +114,19 @@ class getSetData {
             die("Error: " . $e->getMessage());
         }
     }
+    public function getCustomerName() {
+        try {
+            $db = new DbConnector();
+            $db->connect();
+            $query = "SELECT fName FROM customer WHERE CustomerId = ?";
+            $stmt = $db->preQury($query);
+            $stmt->bindValue(1,  $this->user_id);
+            $stmt->execute();
+            $data = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $data;
+        } catch (PDOException $e) {
+            die("Error: " . $e->getMessage());
+        }
+    }
 }
 ?>

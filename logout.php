@@ -1,19 +1,17 @@
 <?php
+session_start();
 
-$password = "my_secure_password";
-        $hash1 = password_hash($password, PASSWORD_DEFAULT);
-        $hash2 = password_hash($password, PASSWORD_DEFAULT);
+// Check if the user is already logged out (no session exists)
+if (!isset($_SESSION['user_id'])) {
+    // Redirect the user to the login page or another appropriate page
+    header("Location: login.php"); // Change 'login.php' to the page you want to redirect to
+    exit;
+}
 
-        echo "Hash 1: $hash1\n";
-        echo "Hash 2: $hash2\n";
+// Destroy the session (log out the user)
+session_destroy();
 
-        $userInputPassword = "user_entered_password";
-
-// Compare user input password with the stored hash
-        if (password_verify($password, $hash2)) {
-         echo "Password is correct!";
-        } else {
-          echo "Password is incorrect.";
-        }
-
-        ?>
+// Redirect the user to the login page or another appropriate page after logout
+header("Location: login.php"); // Change 'login.php' to the page you want to redirect to
+exit;
+?>

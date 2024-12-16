@@ -1,38 +1,45 @@
 <?php
-
 require_once 'EditProfileClasses.php';
 require_once 'DbConnector.php';
 
+$user_id = 2;
+
 if(isset($_POST["fName"], $_POST["lName"], $_POST["email"], $_POST["contact"])) {
-   if(empty($_POST["fName"]) || empty($_POST["lName"]) || empty($_POST["email"]) || empty($_POST["contact"])) {
-      echo "There are empty values";
-   } else {
-      $fName = $_POST["fName"];
-      $lName = $_POST["lName"];
-      $email = $_POST["email"];
-      
-      $file = $_FILES['update_image'];
-            
-                // Check if a file was uploaded
-                if (isset($_FILES['update_image']) && $_FILES['update_image']['error'] === 0) {
-                    $imageData = file_get_contents($_FILES['update_image']['tmp_name']);
-                }else{
-
-                }
-
-      $contact = $_POST["contact"];
-                $user_id = 1;
-      $setData = new getSetData($fName, $lName, $email, $contact, $imageData,$user_id);
-      $result = $setData->setData();
-
-      if ($result) {
-         echo "Data updated successfully.";
-      } else {
-         echo "Data update failed.";
-      }
-   }
+    if(empty($_POST["fName"]) || empty($_POST["lName"]) || empty($_POST["email"]) || empty($_POST["contact"])) {
+        echo "There are empty values";
+    } else {
+        $fName = $_POST["fName"];
+        $lName = $_POST["lName"];
+        $email = $_POST["email"];
+        $contact = $_POST["contact"];
+        
+        $file = $_FILES['update_image'];
+        $imageData = ''; // Initializing imageData variable
+        
+        // Check if a file was uploaded
+        if (isset($file) && $file['error'] === 0) {
+            $imageData = file_get_contents($file['tmp_name']);
+        }
+        
+        // Check if $imageData is still empty, and if so, assign the default image
+        if (empty($imageData)) {
+            // Set the default image path
+            $defaultImagePath = 'img/defult.png'; // Replace with your default image path
+            $imageData = file_get_contents($defaultImagePath);
+        }
+        
+        $setData = new getSetData($fName, $lName, $email, $contact, $imageData, $user_id);
+        $result = $setData->setData();
+        
+        if ($result) {
+            echo "Data updated successfully.";
+        } else {
+            echo "Data update failed.";
+        }
+    }
 }
 ?>
+
 
 
 <!DOCTYPE html>
@@ -50,7 +57,7 @@ if(isset($_POST["fName"], $_POST["lName"], $_POST["email"], $_POST["contact"])) 
 <div class="update-profile">
    <form action="" method="post" enctype="multipart/form-data" id="info">
       <?PHP
-       $user_id = 1;
+     //  $user_id = 2;
        $setData = new getSetData('', '', '', '', '', $user_id);
        $Data = $setData->getData();
 
@@ -66,7 +73,7 @@ if(isset($_POST["fName"], $_POST["lName"], $_POST["email"], $_POST["contact"])) 
      }
       ?>
 
-   <?php
+     <?php
        
          echo '<img src="data:image;base64,'.base64_encode($photopath).'" alt="image">';
     

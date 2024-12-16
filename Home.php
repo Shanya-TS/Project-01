@@ -1,6 +1,15 @@
+<?php
+require_once 'DbConnector.php';
+require_once 'EditProfileClasses.php';
 
+$user_id = 2;
+$setData = new getSetData('', '', '', '', '', $user_id);
+$Data = $setData->getCustomerName();
+$dbFName = $Data['fName'];
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 
 <head>
   <meta charset="UTF-8">
@@ -31,7 +40,6 @@
             <ion-icon name="call-outline"></ion-icon>
           </div>
           <div class="wrapper">
-            
             <p class="helpline-title">For Further Inquires :</p>
             <p class="helpline-number">+94 011 2248257</p>
           </div>
@@ -51,33 +59,19 @@
                     </div>
                     <hr>
 
-                    <a href="../ManagerEditProfile.php" class="sub-menu-link">
-                        <img img class="contactus" src="../img/settings.png" alt=""width="10" height="30">
+                    <a href="EditProfile.php" class="sub-menu-link">
+                        <img img class="contactus" src="img/settings.png" alt=""width="10" height="30">
                         <P>  Edit Profile</P>
                         <span>></span>
                     </a>
                     
                     </a>
                     <a href="change_password.php" class="sub-menu-link">
-                        <img  class="contactus" src="../img/reset-password.png" alt=""width="10" height="30">
+                        <img  class="contactus" src="img/reset-password.png" alt=""width="10" height="30">
                         <P>Change Password</P>
                         <span>></span>
                     </a>
-                    <a href="insert_Destination_data.php" class="sub-menu-link">
-                        <img  class="contactus" src="../img/add-location.png" alt=""width="10" height="30">
-                        <P>Add destinations</P>
-                        <span>></span>
-                    </a>
-                    <a href="insert_Activity_data.php" class="sub-menu-link">
-                        <img  class="contactus" src="../img/more.png" alt=""width="10" height="30">
-                        <P>Add activity</P>
-                        <span>></span>
-                    </a>
-                    <a href="../insertEqupments.php" class="sub-menu-link">
-                        <img  class="contactus" src="img/exit_3456192.png" alt="">
-                        <P>Add Equpments</P>
-                        <span>></span>
-                    </a>
+                    
                 </div>
             </div>
             <!--end menu-->
